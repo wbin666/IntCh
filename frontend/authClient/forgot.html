@@ -1,0 +1,16 @@
+<h1>Forgot Password</h1>
+<form name="forgotForm" ng-submit="forgotForm.$valid && forgotVm.forgot(forgotVm.user)" novalidate ng-autodisable acdsubmitBtnId="forgotSubmitBtnId">
+    <div class="row form-group" ng-class="{ 'has-error': forgotForm.email.$touched && forgotForm.email.$invalid }">
+        <label class="col-md-2" style="text-align: right">E-mail: </label>
+        <input class="col-md-2" ng-model="forgotVm.user.email" type="email" name="email" required/>
+        <div class="help-block" ng-show="forgotForm.$submitted || forgotForm.email.$touched">
+            <span ng-show="forgotForm.email.$error.required">Please enter your email.</span>
+            <span ng-show="forgotForm.email.$error.email">This is not a valid email.</span>
+        </div>
+    </div>
+    <div class="row form-group">
+        <div class="col-md-4" style="text-align: right">
+            <input type="submit" id="forgotSubmitBtnId" class="btn btn-primary" value="Reset Password"/>
+        </div>
+    </div>
+</form>

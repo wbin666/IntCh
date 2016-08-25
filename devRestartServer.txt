@@ -1,0 +1,12 @@
+
+#shut down the server if it has been started ??
+
+#setup the env variables
+NODE_ENV=development;
+PORT=3000;
+
+#for dev,  use the --trace-sync-io command-line flag to print a warning and a stack trace whenever your application uses a synchronous API
+node --trace-sync-io backend/server.js
+
+# for debug, to enable the debug by modules.
+#DEBUG=*,-express:* node backend/server.js | bunyan -o short -l DEBUG

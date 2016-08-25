@@ -1,0 +1,52 @@
+<h1>Sign Up</h1>
+
+<form name="signupForm" ng-submit="signupForm.$valid && signupVm.signup(signupVm.user)" novalidate ng-autodisable acdSubmitBtnId="signupSubmitBtnId">
+	<div class="row form-group" ng-class="{ 'has-error': signupForm.username.$touched && signupForm.username.$invalid }">
+		<label class="col-md-2" style="text-align: right">User Name: </label>
+		<input class="col-md-2 help-block" ng-model="signupVm.user.username" name="username" ng-pattern="/^[a-zA-Z][a-zA-Z0-9-_\.]{3,20}$/" ng-model-options="{updateOn: 'blur'}" required acd-unique-check/>
+        <div class="help-block" ng-show="signupForm.$submitted || signupForm.username.$touched">
+            <span ng-show="signupForm.username.$error.required">Please enter a username</span>
+            <span ng-show="signupForm.username.$error.pattern">Username must be 4 - 20 chars (alphabet, number, "-", "_", and ".") and must start with a letter</span>
+            <span ng-show="signupForm.username.$pending.uniqueCheck">Checking if this username is already registered...</span>
+            <span ng-show="signupForm.username.$error.uniqueCheck">This unsername is already taken.</span>
+        </div>
+    </div>
+
+    <div class="row form-group" ng-class="{ 'has-error': signupForm.email.$touched && signupForm.email.$invalid }">
+        <label class="col-md-2" style="text-align: right">E-mail: </label>
+        <input class="col-md-2" ng-model="signupVm.user.email" type="email" name="email" ng-model-options="{updateOn: 'blur'}" required  acd-unique-check/>
+        <div class="help-block" ng-show="signupForm.$submitted || signupForm.email.$touched">
+            <span ng-show="signupForm.email.$error.required">Please enter your email.</span>
+            <span ng-show="signupForm.email.$error.email">This is not a valid email.</span>
+            <span ng-show="signupForm.email.$pending.uniqueCheck">Checking if this email is already registered...</span>
+            <span ng-show="signupForm.email.$error.uniqueCheck">This email address is already taken.</span>
+        </div>
+    </div>
+
+    <div class="row form-group" ng-class="{ 'has-error': signupForm.password.$touched && signupForm.password.$invalid }">
+        <label class="col-md-2" style="text-align: right">Password: </label>
+        <input class="col-md-2" ng-model="signupVm.user.password" name="password" type="password" ng-model-options="{updateOn: 'blur'}" required ng-minlength="6" ng-maxlength="20" />
+        <div class="help-block" ng-show="signupForm.$submitted || signupForm.password.$touched || signupForm.password2.$error.acdRepeatPassword">
+            <span ng-show="signupForm.password.$error.required">Please enter your password.</span>
+            <span ng-show="signupForm.password.$error.minlength || signupForm.password.$error.maxlength">Passwords must be 4 - 20 characters.</span>
+        </div>
+    </div>
+    <div class="row form-group" ng-class="{ 'has-error': signupForm.password2.$touched && signupForm.password2.$invalid }">
+        <label class="col-md-2" style="text-align: right">Password Again: </label>
+        <input class="col-md-2" ng-model="signupVm.user.password2" name="password2" type="password" ng-model-options="{updateOn: 'blur'}" required acd-repeat-password="signupVm.user.password"/>
+        <div class="help-block" ng-show="signupForm.$submitted || signupForm.password2.$touched">
+            <span ng-show="signupForm.password2.$error.required">Please type your password again.</span>
+            <span ng-show="signupForm.password2.$error.acdRepeatPassword">Passwords must match.</span>
+        </div>
+    </div>
+
+    <div class="row form-group">
+        <div class="col-md-4" style="text-align: right">
+	        <input type="submit" id="signupSubmitBtnId" class="btn btn-primary" value="Sign Up"/>
+        </div>
+    </div>
+</form>
+
+<p>Sign Up or Register with:</p>
+
+<a href="/auth/facebook?returnTo={{'/profile'}}" class="btn btn-primary"><span class="fa fa-facebook"></span> Facebook</a>

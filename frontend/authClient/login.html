@@ -1,0 +1,31 @@
+<h1>Login</h1>
+<form name="loginForm" ng-submit="loginForm.$valid && loginVm.login(loginVm.user)" novalidate ng-autodisable acdsubmitBtnId="loginSubmitBtnId">
+	<div class="row form-group" ng-class="{ 'has-error': loginForm.username.$touched && loginForm.username.$invalid }">
+		<label class="col-md-2" style="text-align: right">User Name: </label>
+        <!--a valid email pattern from https://html.spec.whatwg.org/multipage/forms.html#valid-e-mail-address-->
+		<input class="col-md-2 help-block" ng-model="loginVm.user.username" name="username" placeholder="username or email" ng-model-options="{updateOn: 'blur'}" pattern="^(([a-zA-Z][a-zA-Z0-9-_\.]{3,20})|([a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*))$"  required/>
+		<div class="help-block" ng-show="loginForm.$submitted || loginForm.username.$touched">
+			<span ng-show="loginForm.username.$error.required">Please enter your username or registered email</span>
+			<span ng-show="loginForm.username.$error.pattern">Username must be 4 - 20 chars or a valid email</span>
+		</div>
+	</div>
+
+	<div class="row form-group" ng-class="{ 'has-error': loginForm.password.$touched && loginForm.password.$invalid }">
+		<label class="col-md-2" style="text-align: right">Password: </label>
+		<input class="col-md-2" ng-model="loginVm.user.password" name="password" type="password" placeholder="password" ng-model-options="{updateOn: 'blur'}" required ng-minlength="6" ng-maxlength="20" />
+		<div class="help-block" ng-show="loginForm.$submitted || loginForm.password.$touched">
+			<span ng-show="loginForm.password.$error.required">Please enter your password.</span>
+			<span ng-show="loginForm.password.$error.minlength || loginForm.password.$error.maxlength">Passwords must be 4 - 20 characters.</span>
+		</div>
+	</div>
+	<div class="row form-group">
+		<div class="col-md-4" style="text-align: right">
+			<input type="submit" id="loginSubmitBtnId" class="btn btn-primary" value="Login"/>
+            <a href="/forgot">Forgot Password?</a>
+		</div>
+	</div>
+</form>
+
+<p>Login or Register with:</p>
+
+<a href="/auth/facebook?returnTo={{'/profile'}}" class="btn btn-primary"><span class="fa fa-facebook"></span> Facebook</a>

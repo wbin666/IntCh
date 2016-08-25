@@ -1,0 +1,26 @@
+<h1>Reset Password</h1>
+
+<form name="resetForm" ng-submit="resetForm.$valid && resetVm.resetPwd(resetVm.user)" novalidate ng-autodisable acdsubmitBtnId="resetSubmitBtnId">
+    <div class="row form-group" ng-class="{ 'has-error': resetForm.password.$touched && resetForm.password.$invalid }">
+        <label class="col-md-2" style="text-align: right">New Password: </label>
+        <input class="col-md-2" ng-model="resetVm.user.password" name="password" type="password" ng-model-options="{updateOn: 'blur'}" required ng-minlength="6" ng-maxlength="20" />
+        <div class="help-block" ng-show="resetForm.$submitted || resetForm.password.$touched || resetForm.password2.$error.acdRepeatPassword">
+            <span ng-show="resetForm.password.$error.required">Please enter your password.</span>
+            <span ng-show="resetForm.password.$error.minlength || resetForm.password.$error.maxlength">Passwords must be 4 - 20 characters.</span>
+        </div>
+    </div>
+    <div class="row form-group" ng-class="{ 'has-error': resetForm.password2.$touched && resetForm.password2.$invalid }">
+        <label class="col-md-2" style="text-align: right">Password Again: </label>
+        <input class="col-md-2" ng-model="resetVm.user.password2" name="password2" type="password" ng-model-options="{updateOn: 'blur'}" required acd-repeat-password="resetVm.user.password"/>
+        <div class="help-block" ng-show="resetForm.$submitted || resetForm.password2.$touched">
+            <span ng-show="resetForm.password2.$error.required">Please type your password again.</span>
+            <span ng-show="resetForm.password2.$error.acdRepeatPassword">Passwords must match.</span>
+        </div>
+    </div>
+
+    <div class="row form-group">
+        <div class="col-md-4" style="text-align: right">
+            <input type="submit" id="resetSubmitBtnId" class="btn btn-primary" value="Update Password"/>
+        </div>
+    </div>
+</form>

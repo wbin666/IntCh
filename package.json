@@ -1,0 +1,30 @@
+{
+  "name": "ChPrj",
+  "version": "0.0.1",
+  "description": "ChPrj is starting",
+  "main": "backend/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "async": "^2.0.1",
+    "bcrypt": "^0.8.7",
+    "body-parser": "^1.15.1",
+    "bunyan": "^1.8.1",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.13.4",
+    "express-session": "^1.14.0",
+    "mongodb": "^2.1.16",
+    "morgan": "^1.7.0",
+    "nodemailer": "^2.5.0",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0"
+  },
+  "devDependencies": {
+    "debug": "^2.2.0",
+    "errorhandler": "^1.4.3",
+    "jasmine-node": "^1.14.5"
+  }
+}
