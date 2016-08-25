@@ -1,6 +1,5 @@
-# UserAuthen
-It's a user authentication sample based on MEAN with Passport, session, reset password.
+# Integration of components
 
-Most of features have been completed, but a few areas to be improved later. 1. add JWT support 2. flash message 3. reset token
+It's an integration version of authentication and available time opening.  You may take it as a sample of MEAN.
 
-legal: MIT
+Licensed under the MIT license.
