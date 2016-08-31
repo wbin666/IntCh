@@ -62,7 +62,7 @@
                     <ul class="dropdown-menu">
                         <li><a href="myCalendar">My Home</a></li>
                         <li><a href="publishAvailTime">Open Times</a></li>
-                        <li><a href="#">Book Exercises</a></li>
+                        <li><a href="queryAvailTime">Book Exercises</a></li>
                         <li><a href="#">My Exercise History</a></li>
                         <li role="separator" class="divider"></li>
                         <li><a href="#">My Profile</a></li>
@@ -85,18 +85,6 @@
                 </li>
                 <li><a href="#about">About</a></li>
             </ul>
-            <!--
-            <ul class="navbar-right">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">login/out <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="test">Log In</a></li>
-                        <li><a href="register">Register</a></li>
-                        <li><a href="logout">Log Out</a></li>
-                    </ul>
-                </li>
-            </ul>
-            -->
             <ul class="navbar-right" ng-controller="NavCtrl as navVm">
 			   <span ng-show="!currentUser">
 				 <a href="login">Login</a> |
@@ -145,37 +133,46 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="js/vendor/jquery.min.js"><\/script>')</script>
     -->
-    <script src="bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="lib/ie10-viewport-bug-workaround.js" type="text/javascript"></script>
 
     <!-- jquery, moment, and angular have to get included before fullcalendar -->
     <script src="bower_components/moment/min/moment.min.js"></script>
-    <script src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-ui-calendar/src/calendar.js"></script>
-    <script src="bower_components/angular-animate/angular-animate.min.js"></script>
-    <script src="bower_components/angular-messages/angular-messages.min.js"></script>
-    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
-    <script src="bower_components/angular-route/angular-route.min.js"></script>
-    <script src="bower_components/fullcalendar/dist/fullcalendar.min.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="bower_components/angular-messages/angular-messages.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/fullcalendar/dist/fullcalendar.js"></script>
     <script src="bower_components/fullcalendar/dist/gcal.js"></script>
+    <script src="bower_components/angularUtils-pagination/dirPagination.js"></script>
 
     <script src="./langExApp.module.js"></script>
     <script src="timemanagerclient/timeManager.module.js"></script>
     <script src="timemanagerclient/timeManager.routes.js"></script>
+    <script src="timemanagerclient/opening.dataclient.js"></script>
     <script src="timemanagerclient/OpenAvailTimeCtrl.js"></script>
-    <script src="timemanagerclient/openAvailTime.factory.js"></script>
     <script src="timemanagerclient/acdTimepicker.directive.js"></script>
     <script src="timemanagerclient/acdDatepicker.directive.js"></script>
     <script src="timemanagerclient/CalendarCtrl.js"></script>
 
-    <script src="bower_components/angular-flash-alert/dist/angular-flash.min.js" type="text/javascript"></script>
+    <script src="bower_components/angular-flash-alert/dist/angular-flash.js"></script>
     <script src="lib/angular-autodisable.js"></script>
     <script src="authClient/authClient.routes.js" type="text/javascript"></script>
     <script src="authClient/user.controllers.js" type="text/javascript"></script>
     <script src="authClient/acdUniqueCheck.directive.js" type="text/javascript"></script>
     <script src="authClient/acdRepeatPassword.directive.js"></script>
     <script src="authClient/user.factory.js"></script>
+
+    <script src="booking/booking.module.js"></script>
+    <script src="booking/booking.routes.js"></script>
+    <script src="booking/booking.dataclient.js"></script>
+    <script src="booking/QueryAvailTimeCtrl.js"></script>
+    <script src="booking/AvailTimeCandidateCtrl.js"></script>
+    <script src="booking/bookingConfirmationCtrl.js"></script>
 </body>
 </html>

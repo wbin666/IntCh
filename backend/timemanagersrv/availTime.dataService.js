@@ -10,6 +10,7 @@
     module.exports.getAvailTimeByDateRange = getAvailTimeByDateRange;
     module.exports.insertOneAvailSchedule = insertOneAvailSchedule;
     module.exports.insertManyGenPhysicalRecords = insertManyGenPhysicalRecords;
+    module.exports.getAvailTimeForBooking = getAvailTimeForBooking;
 
     function getAvailTimeByDateRange(startDate, endDate, cb){
         myMongo.langExDB.collection("availableTimeRecords")
@@ -53,6 +54,21 @@
                 logger.info("Inserted the generated physical records" + JSON.stringify(physicalRecords));
 
                 return cb(null, result); // Successfully inserted the schedule and physical records
+            });
+    }
+
+    function getAvailTimeForBooking(selectedDate, earlistStartTime, latestEndTime, unitNumber, cb){
+        logger.info("the passed parameters are : selectedDate= %s : earlistStartTime=%s : latestEndTime=%s : unitNumber=%s", selectedDate, earlistStartTime, latestEndTime, unitNumber);
+        myMongo.langExDB.collection("availableTimeRecords")
+            .find({availableDate: {$eq: selectedDate}, timeStart : {$lte: earlistStartTime}, timeEnd : {$gte: latestEndTime}}, {availableDate:1, timeStart:1, timeEnd:1})
+            .toArray()
+            .then(function(docs){
+                logger.info("all of availableTimeRecords for booking are : " + JSON.stringify(docs));
+                return cb(null, docs);
+            })
+            .catch(function(err){
+                logger.info("Failed to get the availableTimeRecords and the error detail is : " + err.stack);
+                return cb(err, null);
             });
     }
 

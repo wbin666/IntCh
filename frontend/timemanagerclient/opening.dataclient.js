@@ -3,10 +3,10 @@
  */
 (function(){
     angular.module('timeManager')
-        .factory('openAvailTime', openAvailTime);
+        .factory('openingDataClient', openingDataClient);
 
-    openAvailTime.inject = ['$http', '$location'];
-    function openAvailTime($http, $location) {
+    openingDataClient.inject = ['$http', '$location'];
+    function openingDataClient($http, $location) {
         return {
             publishTime: publishTime
         };

@@ -5,8 +5,8 @@
     angular.module('timeManager')
         .controller('OpenAvailTimeCtrl', OpenAvailTimeCtrl);
 
-    OpenAvailTimeCtrl.$inject = ['$http', '$location', 'openAvailTime'];
-    function OpenAvailTimeCtrl($http, $location, openAvailTime) {
+    OpenAvailTimeCtrl.$inject = ['openingDataClient'];
+    function OpenAvailTimeCtrl(openingDataClient) {
         var vm = this;
         
         vm.days = [
@@ -42,7 +42,7 @@
         vm.weeklyRepeatInterval = "1";
 
         vm.openTime = function openTime(){
-            return openAvailTime.publishTime(vm);
+            return openingDataClient.publishTime(vm);
         };
 
         // $scope.dailyRepeatOptions=[

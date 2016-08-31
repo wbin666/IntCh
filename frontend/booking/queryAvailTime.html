@@ -1,0 +1,18 @@
+<div class="page-header">
+    <h3>Please query available time</h3>
+</div>
+
+<form name="queryAvailTimeForm" novalidate>
+    <label>Time Zone: </label><input type="text" contenteditable="false" value="sample time zone"/>
+    <acd-datepicker base-date-model="queryAvailTimeVm.dateModel" base-label-text="{{::(queryAvailTimeVm.dateLabel)}}"></acd-datepicker>
+    <acd-timepicker base-time-model="queryAvailTimeVm.earliestStartTimeModel" base-label-text="{{::(queryAvailTimeVm.earliestStartTimeLabel)}}"></acd-timepicker>
+    <acd-timepicker base-time-model="queryAvailTimeVm.latestEndTimeModel" base-label-text="{{::(queryAvailTimeVm.latestEndTimeLabel)}}"></acd-timepicker>
+    <div>
+        <label>Number of lessons: </label>
+        <input type="number" ng-model="queryAvailTimeVm.unitNumber" min="1" max="4"/>
+        <label>unit. 1 unit is 60 minutes long (50 minutes of practice/instruction + 10-minute summarizing/break)</label>
+    </div>
+    <div>
+        <input type="submit" value="Search" ng-click="queryAvailTimeVm.queryTime()"/>
+    </div>
+</form>
