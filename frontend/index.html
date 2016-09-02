@@ -56,11 +56,11 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
+                <li class="active"><a href="/">Home</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">User Center <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="myCalendar">My Home</a></li>
+                        <li><a href="myCalendar">My Calendar</a></li>
                         <li><a href="publishAvailTime">Open Times</a></li>
                         <li><a href="queryAvailTime">Book Exercises</a></li>
                         <li><a href="#">My Exercise History</a></li>
@@ -158,7 +158,9 @@
     <script src="timemanagerclient/OpenAvailTimeCtrl.js"></script>
     <script src="timemanagerclient/acdTimepicker.directive.js"></script>
     <script src="timemanagerclient/acdDatepicker.directive.js"></script>
-    <script src="timemanagerclient/CalendarCtrl.js"></script>
+    <script src="timemanagerclient/MyCalendarCtrl.js"></script>
+    <script src="util/frontUtility.module.js"></script>
+    <script src="util/dateTimeUtil.factory.js"></script>
 
     <script src="bower_components/angular-flash-alert/dist/angular-flash.js"></script>
     <script src="lib/angular-autodisable.js"></script>
@@ -172,7 +174,7 @@
     <script src="booking/booking.routes.js"></script>
     <script src="booking/booking.dataclient.js"></script>
     <script src="booking/QueryAvailTimeCtrl.js"></script>
-    <script src="booking/AvailTimeCandidateCtrl.js"></script>
+    <script src="booking/AvailTimeListCtrl.js"></script>
     <script src="booking/bookingConfirmationCtrl.js"></script>
 </body>
 </html>

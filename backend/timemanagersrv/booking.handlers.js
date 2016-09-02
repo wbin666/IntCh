@@ -16,18 +16,18 @@
         logger.info("Step into the queryAvailTimeGetHandler and the req query string is " + JSON.stringify(req.query));
         logger.info("Step into the queryAvailTimeGetHandler and the req params string is " + JSON.stringify(req.params));
 
-        logger.info("the passed req.query strings are : selectedDate= %s : earlistStartTime=%s : latestEndTime=%s : unitNumber=%s", req.query.date, req.query.earlistStartTime, req.query.latestEndTime, req.query.unitNumber);
-        logger.info("the passed req.params strings are : selectedDate= %s : earlistStartTime=%s : latestEndTime=%s : unitNumber=%s", req.params.date, req.params.earlistStartTime, req.params.latestEndTime, req.params.unitNumber);
+        logger.info("the passed req.query strings are : earlistStartTime=%s : latestEndTime=%s : unitNumber=%s : preferredInstructorName=%s ", req.query.earlistStartTime, req.query.latestEndTime, req.query.unitNumber, req.query.preferredInstructorName);
+        logger.info("the passed req.params strings are : earlistStartTime=%s : latestEndTime=%s : unitNumber=%s : preferredInstructorName=%s", req.params.earlistStartTime, req.params.latestEndTime, req.params.unitNumber, req.params.preferredInstructorName);
 
-        // date: vm.dateModel.toISOString().substring(0, 10),
-        // earlistStartTime: vm.earliestStartTimeModel,
-        // latestEndTime: vm.latestEndTimeModel,
-        // unitNumber: vm.unitNumber
+        // earlistStartTime: startDateTimeUtcStr,
+        // latestEndTime: endDateTimeUtcStr,
+        // unitNumber: vm.unitNumber,
+        // preferredInstructorName: vm.preferredInstructorName
         dataService.getAvailTimeForBooking(
-            req.query.date,
             req.query.earlistStartTime,
             req.query.latestEndTime,
             req.query.unitNumber,
+            req.query.preferredInstructorName,
             getAvailTimeCallback);
 
         function getAvailTimeCallback(err, docs){

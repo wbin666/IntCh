@@ -14,12 +14,15 @@
                 controllerAs: 'queryAvailTimeVm'
             })
             .when('/availTimeCandidates', {
-                templateUrl: 'booking/availTimeCandidates.html',
+                templateUrl: 'booking/availTimeList.html',
                 controller: 'AvailTimeCandidateCtrl',
                 controllerAs: 'availTimeCandidatesVm',
                 resolve: {
-                    firstPageData: getAvailTimeForBooking,
+                    firstPageData: getAvailTimeForBooking
                 }
+            })
+            .when('/bookedSessionDetail', {
+                templateUrl: 'booking/bookedSessionDetail.html'
             });
 
         // configure html5 to get links working on jsfiddle

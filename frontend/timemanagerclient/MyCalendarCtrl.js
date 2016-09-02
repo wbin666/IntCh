@@ -3,11 +3,11 @@
  */
 (function() {
     angular.module('timeManager')
-        .controller('CalendarCtrl', CalendarCtrl);
+        .controller('MyCalendarCtrl', MyCalendarCtrl);
 
-    CalendarCtrl.$inject = ['$routeParams'];
+    MyCalendarCtrl.$inject = ['$routeParams', 'dateTimeUtil'];
 
-    function CalendarCtrl($routeParams) {
+    function MyCalendarCtrl($routeParams, dateTimeUtil) {
         var vm = this;
 
         /* config object */
@@ -48,13 +48,20 @@
         vm.availTimeFeedTrsf = function (rawData) {
             // the date time are stored as UTC
             //Here moment take an ISO/UTC string to a local time by default.
-            var startMoment = moment(rawData.availableDate+"T"+rawData.timeStart+":00.000Z");
-            var endMoment = moment(rawData.availableDate+"T"+rawData.timeEnd+":00.000Z");
+            // var startMoment = moment(rawData.availableDate+"T"+rawData.timeStart+":00.000Z");
+            // var endMoment = moment(rawData.availableDate+"T"+rawData.timeEnd+":00.000Z");
+            // var startMoment = dateTimeUtil.getLocalMoment(rawData.availableDate, rawData.timeStart);
+            // var endMoment = dateTimeUtil.getLocalMoment(rawData.availableDate, rawData.timeEnd);
 
-            //to check if endMoment is a next date
-            if(startMoment > endMoment) {
-                endMoment.add(1, 'days');
-            }
+            // //to check if endMoment is a next date
+            // if(startMoment > endMoment) {
+            //     endMoment.add(1, 'days');
+            // }
+
+            // the date time are stored as ISO-8601 string ended with 'Z' via toISOString()
+            //Here moment take an ISO/UTC string to a local time by default.
+            var startMoment = moment(rawData.timeStart);
+            var endMoment = moment(rawData.timeEnd);
 
             return {
                 id: rawData._id,

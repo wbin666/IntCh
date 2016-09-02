@@ -11,7 +11,7 @@
         $routeProvider
             .when('/myCalendar', {
                 templateUrl: 'timemanagerclient/myCalendar.html',
-                controller: 'CalendarCtrl',
+                controller: 'MyCalendarCtrl',
                 controllerAs: 'myCalendarCtrl'
             })
             .when('/publishAvailTime', {

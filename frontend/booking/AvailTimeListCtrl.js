@@ -7,12 +7,12 @@
     angular.module('booking')
         .controller('AvailTimeCandidateCtrl', AvailTimeCandidateCtrl);
 
-    AvailTimeCandidateCtrl.$inject = ['bookingDataClient', 'firstPageData', '$routeParams', '$uibModal', '$log'];
-    function AvailTimeCandidateCtrl(bookingDataClient, firstPageData, $routeParams, $uibModal, $log) {
+    AvailTimeCandidateCtrl.$inject = ['bookingDataClient', 'firstPageData', '$routeParams', '$uibModal', '$location'];
+    function AvailTimeCandidateCtrl(bookingDataClient, firstPageData, $routeParams, $uibModal, $location) {
         var vm = this;
-        vm.items = ['item1', 'item2', 'item3'];
 
         console.log("$routeParam in AvailTimeCandidateCtrl is : " + JSON.stringify($routeParams));
+        vm.queryCriteria = $routeParams;
 
         vm.candidateList = firstPageData; //declare an empty array
         // vm.pageno = 1; // initialize page no to 1
@@ -30,31 +30,32 @@
         
         vm.bookSession = bookSession;
         
-        function bookSession(){
-                console.log('step into bookSession() method to open a modal ...');
+        function bookSession(selectedItem){
+                console.log('step into bookSession() method to open a modal and the selected item ...' + JSON.stringify(selectedItem));
 
                 var modalInstance = $uibModal.open({
                     animation: true,
-                    templateUrl: 'booking/bookingConfirmationModalDialog.html',
+                    templateUrl: 'booking/bookingConfirmation.ModalDialog.html',
                     controller: 'ModalInstanceCtrl',
                     controllerAs: 'bookingConfirmVm',
                     resolve: {
-                        items: function () {
-                            return vm.items;
+                        selectedRecord: function () {
+                            console.log("the passed item is " + JSON.stringify(selectedItem))
+                            return selectedItem;
                         }
                     }
                 });
 
-                console.log("open a modal in bookSession() method");
+                modalInstance.result.then(function (confirmedRecord) {
+                    console.info('Modal confirmed result is : ' + JSON.stringify(confirmedRecord));
 
-                modalInstance.result.then(function (selectedItem) {
-                    vm.selected = selectedItem;
-                    $log.info('selected item is' + selectedItem);
+                    //Todo: then to book the record by updating database
+                    
+                    //Todo: then redirect to "bookedSessionDetail" view with cancel button or option
+                    $location.url('bookedSessionDetail');
                 }, function () {
-                    $log.info('Modal dismissed at: ' + new Date());
+                    console.info('Modal dismissed at: ' + new Date());
                 });
-
-                console.log('finished the booksession() method ... ');
         }
         
     }

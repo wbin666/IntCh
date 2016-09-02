@@ -7,15 +7,12 @@
 // Please note that $uibModalInstance represents a modal window (instance) dependency.
 // It is not the same as the $uibModal service used above.
 
-    angular.module('booking').controller('ModalInstanceCtrl', function ($uibModalInstance, items) {
+    angular.module('booking').controller('ModalInstanceCtrl', function ($uibModalInstance, selectedRecord) {
         var vm = this;
-        vm.items = items;
-        vm.selected = {
-            item: vm.items[0]
-        };
+        vm.selectedRecord = selectedRecord;
 
         vm.ok = function () {
-            $uibModalInstance.close(vm.selected.item);
+            $uibModalInstance.close(vm.selectedRecord);
         };
 
         vm.cancel = function () {

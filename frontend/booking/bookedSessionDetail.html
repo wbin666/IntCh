@@ -1,10 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<h1>Booking Details</h1>
 
-</body>
-</html>
+<div>
+    <div>
+        <h3>All times are displayed as local time for <span>...Time Zone to be added ...</span></h3>
+        <label>Course :</label><Input contenteditable="false"/><br>
+        <label>Level :</label><Input contenteditable="false"/><br>
+        <label>Language :</label><Input contenteditable="false"/><br>
+        <label>Instructor :</label><Input contenteditable="false"/><br>
+        <label>Booking Status :</label><Input contenteditable="false"/><br>
+        <label>Date :</label><Input contenteditable="false"/><br>
+        <label>Start Time :</label><Input contenteditable="false"/><br>
+        <label>End Time :</label><Input contenteditable="false"/><br>
+        <p></p>
+        <label>Date/Time Booked :</label><Input contenteditable="false"/><br>
+        <label>Booked By :</label><Input contenteditable="false"/><br>
+    </div>
+    <div>
+        <h3>Request that this session be Cancelled</h3>
+        <p>If you would like to cancel this session(s), open the dropdown menu for "Reason" and choose the most appropriate item. Click "Request that this Session be Cancelled</p>
+        <p>Requesting a session to be cancelled will result in this session being removed from your calendar. You can confirm this by doing the following.</p>
+        <p>[How to confirm]
+        <ol>
+            <li>Click "UserCenter-->My Calendar" on the top menu.</li>
+            <li>Click the date which you cancel your session(s)</li>
+            <li>You can confirm that the Booking record is removed (Booking Status is Cancelled)</li>
+        </ol>
+        </p>
+        <p><label>Reason: </label>
+            <input list="cancelReasons">
+            <datalist id="cancelReasons">
+                <option value="Business Trip"></option>
+                <option value="Computer Trouble"></option>
+                <option value="Not prepared for session"></option>
+                <option value="Not satisfied with Instructor"></option>
+                <option value="Personal"></option>
+                <option value="Scheduling conflict"></option>
+                <option value="Sick"></option>
+                <option value="Too busy to attend"></option>
+                <option value="Vacation"></option>
+            </datalist>
+        </p>
+        <button type="button">Request that this Session be Cancelled</button>
+    </div>
+</div>

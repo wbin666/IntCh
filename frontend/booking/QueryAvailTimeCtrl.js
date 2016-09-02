@@ -7,8 +7,8 @@
     angular.module('booking')
         .controller('QueryAvailTimeCtrl', QueryAvailTimeCtrl);
 
-    QueryAvailTimeCtrl.$inject = ['$location', 'bookingDataClient'];
-    function QueryAvailTimeCtrl($location, bookingDataClient) {
+    QueryAvailTimeCtrl.$inject = ['$location', 'bookingDataClient', 'dateTimeUtil'];
+    function QueryAvailTimeCtrl($location, bookingDataClient, dateTimeUtil) {
         var vm = this;
 
         var tempDate = new Date();
@@ -22,20 +22,24 @@
         vm.latestEndTimeModel = "11:00";
 
         vm.unitNumber=1;
+        vm.preferredInstructorName;
 
         vm.queryTime = function queryTime(){
             //return bookingDataClient.queryAvailTime(dataFilter4Submit(vm));
             //$location.url('/availTimeCandidates').search({params: dataFilter4Submit(vm)});
-            console.log("start to search the time slot .... ")
+            console.log("start to search the time slot .... ");
             $location.url('/availTimeCandidates').search({params: dataFilter4Submit(vm)});
         };
 
-        function dataFilter4Submit(vm){
+        function dataFilter4Submit(vm) {
+            var startDateTimeUtcStr = dateTimeUtil.getUtcDateTimeStr(vm.dateModel, vm.earliestStartTimeModel);
+            var endDateTimeUtcStr = dateTimeUtil.getUtcDateTimeStr(vm.dateModel, vm.latestEndTimeModel);
+
             return {
-                date: vm.dateModel.toISOString().substring(0, 10),
-                earlistStartTime: vm.earliestStartTimeModel,
-                latestEndTime: vm.latestEndTimeModel,
-                unitNumber: vm.unitNumber
+                earlistStartTime: startDateTimeUtcStr,
+                latestEndTime: endDateTimeUtcStr,
+                unitNumber: vm.unitNumber,
+                preferredInstructorName: vm.preferredInstructorName
             };
         }
     }
