@@ -31,9 +31,12 @@
         //     next(new Error('not implemented'));
         // });
 
-    router.route('/availTime/deletes')
+    router.route('/availTime/deletes/timeRange')
         .post(jsonParser, openingHandlers.deleteMultipleAvailTimePostHandler);
 
+    router.route('/availTime/deletes/wholeDay/:localDateStart/:localDateEnd')
+        .delete(openingHandlers.deleteAvailTimeByWholeDayDeleteHandler);
+    
     // router.route('/availTime/deletes/:resourceId')
     //     .get(openingHandlers.deleteAvailTimesResult);
     

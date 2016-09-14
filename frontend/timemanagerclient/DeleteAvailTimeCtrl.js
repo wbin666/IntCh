@@ -21,8 +21,17 @@
         tempDate.setDate(tempDate.getDate() + 7);
         vm.endDateModel = tempDate;  //by default, it's for 7 days
 
+        vm.releaseType = 'releaseWholeDay';
+        
         vm.deleteTime = function deleteTime(){
-            return openingDataClient.deleteTime(vm);
+            if(vm.releaseType === 'releaseTimeRange'){
+                return openingDataClient.releaseTimeRange(vm);
+            }
+            
+            if(vm.releaseType === 'releaseWholeDay'){
+                return openingDataClient.releaseWholeDay(vm);
+            }
+            
         };
     }
 })();

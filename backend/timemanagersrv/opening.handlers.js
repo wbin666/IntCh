@@ -13,10 +13,26 @@
     //just keep a track (getting status) for a long running deleting request
     var requestArrayOfDeleteMultipleAvailTimes = [];
 
+    module.exports.deleteAvailTimeByWholeDayDeleteHandler =deleteAvailTimeByWholeDayDeleteHandler;
     module.exports.deleteMultipleAvailTimePostHandler = deleteMultipleAvailTimePostHandler;
     module.exports.availTimePostHandler=availTimePostHandler;
     module.exports.availTimeGetHandler=availTimeGetHandler;
 
+    function deleteAvailTimeByWholeDayDeleteHandler(req, res){
+        logger.info("the req.params is : " + JSON.stringify(req.params));
+        var dateStart = moment(req.params.localDateStart).toDate();
+        var dateEnd = moment(req.params.localDateEnd).toDate();
+
+        dataService.deleteAvailTimeByWholeDayRange(dateStart, dateEnd, deleteWholeDaysCallback);
+
+        function deleteWholeDaysCallback(err, results){
+            if(err){
+                return res.status(500).send('Error occurred while deleting the available times by whole days : ' + err.message);
+            }
+
+            return res.status(200).send('Successfully removed the available times by the request whole days.');
+        }
+    }
     //module.exports.resultOfDeleteMultipleAvailTimesGetHandler = resultOfDeleteMultipleAvailTimesGetHandler;
     // function resultOfDeleteMultipleAvailTimesGetHandler(req, res) {
     //     logger.log('the passed resource id is' + req.params.resourceId);
@@ -57,8 +73,8 @@
     //(Not adopt) refer to: http://stackoverflow.com/questions/21863326/delete-multiple-records-using-rest?noredirect=1&lq=1
     function deleteMultipleAvailTimePostHandler(req, res){
         var deleteTimeSlotList= genDailyUtcTimeSlotList(req.body.localTimeStart, req.body.localTimeEnd, req.body.localDateEnd, 1);  //set dailyRecurInterval = 1 by default
-        var dateStart = moment(req.body.localTimeStart).startOf('date');
-        var dateEnd = moment(req.body.localDateEnd).endOf('date');
+        //var dateStart = moment(req.body.localTimeStart).startOf('date');
+        //var dateEnd = moment(req.body.localDateEnd).endOf('date');
         
         //generate an unique Id (via mongo ObjectId) and add to an array (resourceId, username, deleteList), so as a resource for http get
         //use resourceId and username to identify the unique track for a user's deleting request with multiple time slots

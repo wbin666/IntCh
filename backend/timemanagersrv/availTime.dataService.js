@@ -11,6 +11,7 @@
 
     var Const60Mins = 60 * 60 *1000;  //milliseconds for 60 minutes
 
+    module.exports.deleteAvailTimeByWholeDayRange = deleteAvailTimeByWholeDayRange;
     module.exports.getAvailTimeForBookingByPage = getAvailTimeForBookingByPage;
     module.exports.availTimeDeleteByDelTimeSlot = availTimeDeleteByDelTimeSlot;
     module.exports.cancelBookedSessionById = cancelBookedSessionById;
@@ -21,6 +22,65 @@
     module.exports.insertManyGenPhysicalRecords = insertManyGenPhysicalRecords;
     //module.exports.getAvailTimeForBooking = getAvailTimeForBooking;
 
+    function deleteAvailTimeByWholeDayRange(dateStart, dateEnd, cb){
+        var bulkActionArray=[];
+
+        var filter4UpdateTimeStart = {
+            $and: [
+                { $and: [
+                    {timeStart: {$gt: dateStart}},
+                    {timeStart: {$lt: dateEnd}}
+                ]},
+                {timeEnd: {$gt: dateEnd}}
+            ]
+        };
+
+
+        bulkActionArray.push({
+            deleteMany: {
+                filter: {
+                    timeStart : { $gte: dateStart },
+                    timeEnd : { $lte: dateEnd }
+                }
+            }
+        });
+
+        bulkActionArray.push({
+            updateMany: {
+                filter: {
+                    $and: [
+                        { timeStart : {$lt: dateStart} },
+                        { $and: [
+                            { timeEnd: {$gt: dateStart} },
+                            { timeEnd: {$lt: dateEnd} }
+                        ]}
+                    ]
+                },
+                update: { $set: { timeEnd: dateStart } }
+            }
+        });
+
+        bulkActionArray.push({
+            updateMany : {
+                filter : {
+                    $and: [
+                        { $and: [
+                            {timeStart: {$gt: dateStart}},
+                            {timeStart: {$lt: dateEnd}}
+                        ]},
+                        {timeEnd: {$gt: dateEnd}}
+                    ]
+                },
+                update : { $set: { timeStart: dateEnd } }
+            }
+        });
+
+        myMongo.langExDB.collection("availableTimeRecords")
+            .bulkWrite(bulkActionArray, function(err, results){
+                return cb(err, results);
+            });
+    }
+    
     function getAvailTimeForBookingByPage(earliestStartTime, latestEndTime, unitNumber, preferredInstructorName,
                                           itemsPerPage, newPageNumber, oldPageNumber, idOf1stRecordOnCurrentPage, cb){
         //refer to: http://www.ovaistariq.net/404/mysql-paginated-displays-how-to-kill-performance-vs-how-to-improve-performance/#.V9YxLnV94xM

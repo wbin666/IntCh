@@ -5,18 +5,23 @@
 <form name="deleteAvailTimeForm" novalidate>
     <div>
         <div>
-            <label>Time range to be cleaned up</label>
-        </div>
-        <acd-timepicker base-time-model="deleteTimeCtrl.startTimeModel" base-label-text="{{::(deleteTimeCtrl.startTimeLabel)}}"></acd-timepicker>
-        <acd-timepicker base-time-model="deleteTimeCtrl.endTimeModel" base-label-text="{{::(deleteTimeCtrl.endTimeLabel)}}"></acd-timepicker>
-    </div>
-    <br/>
-    <div>
-        <div>
             <label>Date range to be cleaned up</label>
         </div>
         <acd-datepicker base-date-model="deleteTimeCtrl.startDateModel" base-label-text="{{::(deleteTimeCtrl.startDateLabel)}}"></acd-datepicker>
         <acd-datepicker base-date-model="deleteTimeCtrl.endDateModel" base-label-text="{{::(deleteTimeCtrl.endDateLabel)}}"></acd-datepicker>
+    </div>
+    <br/>
+    <div>
+        <input type="radio" ng-model="deleteTimeCtrl.releaseType" value="releaseWholeDay">Release whole day(s)
+        <input type="radio" ng-model="deleteTimeCtrl.releaseType" value="releaseTimeRange">Release time range
+    </div>
+    <br>
+    <div ng-show="deleteTimeCtrl.releaseType === 'releaseTimeRange'">
+        <div>
+            <label>Time range to be cleaned up</label>
+        </div>
+        <acd-timepicker base-time-model="deleteTimeCtrl.startTimeModel" base-label-text="{{::(deleteTimeCtrl.startTimeLabel)}}"></acd-timepicker>
+        <acd-timepicker base-time-model="deleteTimeCtrl.endTimeModel" base-label-text="{{::(deleteTimeCtrl.endTimeLabel)}}"></acd-timepicker>
     </div>
     <br/>
     <div>

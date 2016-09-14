@@ -8,21 +8,37 @@
     openingDataClient.inject = ['$http', '$location', 'dateTimeUtil'];
     function openingDataClient($http, $location, dateTimeUtil) {
         return {
-            deleteAvailTime: deleteAvailTime,
+            releaseWholeDay: releaseWholeDay,
+            releaseTimeRange: releaseTimeRange,
             publishTime: publishTime
         };
 
-        function deleteAvailTime(vm){
+        function releaseWholeDay(vm){
+            var localDateStart = moment(vm.startDateModel.toISOString()).startOf('date').format();
+            var localDateEnd = moment(vm.endDateModel.toISOString()).endOf('date').format();
+
+            return $http.delete('/api/availTime/deletes/wholeDay/' + localDateStart + '/' + localDateEnd)
+                .then(function(response){
+                    //add Flash message here
+                    //location.url('/api/availTime/deletes/' + response.data.resourceId);
+                    location.url('/myCalendar?gotoDate=' + dateTimeUtil.getLocalDateStr(vm.startDateModel));
+                })
+                .catch(function(errResponse){
+                    console.log('Error occurred during picking up the deletion candidates : ' + errResponse.status + ' : '+ errResponse.statusText);
+                });
+        }
+
+        function releaseTimeRange(vm){
             console.log('starting to delete the opened avail time');
-            var deleteData = {
-                localTimeStart : dateTimeUtil.getLocalDateTimeWithUtcoffset(vm.startDateModel, vm.startTimeModel),
-                localTimeEnd : dateTimeUtil.getLocalDateTimeWithUtcoffset(vm.startDateModel, vm.endTimeModel),
+            var deleteTimeRangePeriod = {
+                localTimeStart : dateTimeUtil.getLocalDateTimeStrWithUtcOffset(vm.startDateModel, vm.startTimeModel),
+                localTimeEnd : dateTimeUtil.getLocalDateTimeStrWithUtcOffset(vm.startDateModel, vm.endTimeModel),
                 //comment localDateStart variable because it is same to localTimeStart
                 //localDateStart : dateTimeUtil.getLocalDateTimeWithUtcoffset(vm.startDateModel, vm.startTimeModel),
-                localDateEnd : dateTimeUtil.getLocalDateTimeWithUtcoffset(vm.endDateModel, vm.endTimeModel)
+                localDateEnd : dateTimeUtil.getLocalDateTimeStrWithUtcOffset(vm.endDateModel, vm.endTimeModel)
             };
 
-            return $http.post('/api/availTime/deletes', deleteData)
+            return $http.post('/api/availTime/deletes/timeRange', deleteTimeRangePeriod)
                 .then(function(response){
                     //add Flash message here
                     //location.url('/api/availTime/deletes/' + response.data.resourceId);
