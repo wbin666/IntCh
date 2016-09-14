@@ -1,0 +1,25 @@
+<div class="page-header">
+    <h3>Delete the opened available timeslots by the time range and date range below </h3>
+</div>
+
+<form name="deleteAvailTimeForm" novalidate>
+    <div>
+        <div>
+            <label>Time range to be cleaned up</label>
+        </div>
+        <acd-timepicker base-time-model="deleteTimeCtrl.startTimeModel" base-label-text="{{::(deleteTimeCtrl.startTimeLabel)}}"></acd-timepicker>
+        <acd-timepicker base-time-model="deleteTimeCtrl.endTimeModel" base-label-text="{{::(deleteTimeCtrl.endTimeLabel)}}"></acd-timepicker>
+    </div>
+    <br/>
+    <div>
+        <div>
+            <label>Date range to be cleaned up</label>
+        </div>
+        <acd-datepicker base-date-model="deleteTimeCtrl.startDateModel" base-label-text="{{::(deleteTimeCtrl.startDateLabel)}}"></acd-datepicker>
+        <acd-datepicker base-date-model="deleteTimeCtrl.endDateModel" base-label-text="{{::(deleteTimeCtrl.endDateLabel)}}"></acd-datepicker>
+    </div>
+    <br/>
+    <div>
+        <input type="submit" value="Delete" ng-click="deleteTimeCtrl.deleteTime()">
+    </div>
+</form>

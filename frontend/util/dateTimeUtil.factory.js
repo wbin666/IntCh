@@ -9,15 +9,22 @@
     //dateTimeUtil.$inject = [];
     function dateTimeUtil(){
         return {
+            getLocalDateStr: getLocalDateStr,
             getUtcDateTimeStr: getUtcDateTimeStr,
             //getLocalMoment: getLocalMoment,
-            getLocalDateTimeWithUtcoffset: getLocalDateTimeWithUtcoffset,
+            getLocalDateTimeStrWithUtcOffset: getLocalDateTimeStrWithUtcOffset,
             getRecurData: getRecurData
         };
 
         //moment("2014-04-25T01:32:21.196Z");  // iso string, utc timezone
         //moment("2014-04-25T01:32:21.196+0600");  // iso string with timezone
         //moment().format();  //if it's in local mode (not utc mode), the output is 2016-06-16T21:45:00+08:00
+
+        function getLocalDateStr(localDateJsObj){
+            return localDateJsObj.getFullYear() + '-'
+                + localDateJsObj.getMonth() + '-'
+                + localDateJsObj.getDate();
+        }
 
         function getUtcDateTimeStr(localDateJsObj, localTimeHHmmStr){
             //localDateJsObj and localTimeHHmmStr are from a "local time"
@@ -46,18 +53,30 @@
         //     return moment(utcDateStr+"T"+utcTimeStr+":00.000Z");
         // }
 
-        function getLocalDateTimeWithUtcoffset(localDateJsObj, localTimeHHmmStr){
+        function getLocalDateTimeStrWithUtcOffset(localDateJsObj, localTimeHHmmStr){
             //localDateJsObj and localTimeHHmmStr are from a "local time"
             //localDateJsObj is a javescript "Date" object
             //localTimeHHmmStr is a string of "HH:mm" in 24 hours
 
-            var localTimeIsoStr = localDateJsObj.getFullYear() + '-'
-                + localDateJsObj.getMonth() + '-'
-                + localDateJsObj.getDate() + 'T'
-                + localTimeHHmmStr + ":00";   //00 is seconds;  no utc offset appended,  so moment will take it as a local date time by default.
+            // var localTimeIsoStr = localDateJsObj.getFullYear() + '-'
+            //     + (localDateJsObj.getMonth()+1) + '-'
+            //     + localDateJsObj.getDate() + 'T'
+            //     + localTimeHHmmStr + ":00";   //00 is seconds;  no utc offset appended,  so moment will take it as a local date time by default.
+            //
+            // console.log("the built localTimeIsoStr is : " + localTimeIsoStr);
+            // //leverage a moment.format() to get Uts Offset appended, i.e. +08:00,  instead of getting minutes difference by Date.getTimezoneOffset()
+            // var result = moment(localTimeIsoStr, moment.ISO_8601);
 
+            var HhmmArray = localTimeHHmmStr.split(':');
             //leverage a moment.format() to get Uts Offset appended, i.e. +08:00,  instead of getting minutes difference by Date.getTimezoneOffset()
-            var result = moment(localDateJsObj);
+            //by default: second and millisecond are zero
+            var result = moment({
+                year :localDateJsObj.getFullYear(),
+                month :localDateJsObj.getMonth(),
+                day :localDateJsObj.getDate(),
+                hour :parseInt(HhmmArray[0]),
+                minute : parseInt(HhmmArray[1])
+            });
 
             console.log("Expected local datetime string with UTC offset is : " + result.format());
 

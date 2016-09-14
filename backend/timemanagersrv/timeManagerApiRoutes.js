@@ -31,26 +31,24 @@
         //     next(new Error('not implemented'));
         // });
 
-    router.route('/booking/availTime')
-        .get(jsonParser, bookingHandlers.queryAvailTimeGetHandler);
+    router.route('/availTime/deletes')
+        .post(jsonParser, openingHandlers.deleteMultipleAvailTimePostHandler);
 
-    // router.get('/hello', function(req, res) {
-    //     var responseText = 'Hello Alex';
-    //     responseText += 'Requested at : ' + req.requestTime + '';
-    //     res.send(responseText);
-    // });
-    //
-    // router.post('/availtime', function(req, res){
-    //     res.send('Got a POST request');
-    // });
-    //
-    // router.put('/user', function(req, res) {
-    //     res.send('Got a PUT request at /user');
-    // });
-    //
-    // router.delete('/user', function(req, res) {
-    //     res.send('Got a DELETE request at /user');
-    // });
+    // router.route('/availTime/deletes/:resourceId')
+    //     .get(openingHandlers.deleteAvailTimesResult);
+    
+    router.route('/booking/availTime')
+        .post(jsonParser, bookingHandlers.bookSessionPostHandler);
+//        .get(jsonParser, bookingHandlers.queryAvailTimeGetHandler);
+    
+    router.route('/booking/list/page')
+        .get(jsonParser, bookingHandlers.queryAvailTimeListByPageGetHandler);
+    
+    router.route('/bookedSession/:_id')
+        .get(bookingHandlers.bookedSessionDetailGetHandler);
+
+    router.route('/bookedSession/cancel/:_id')
+        .patch(jsonParser,bookingHandlers.cancelBookedSessionById);
 
     module.exports = router;
 

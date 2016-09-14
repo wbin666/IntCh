@@ -60,18 +60,26 @@
 
             // the date time are stored as ISO-8601 string ended with 'Z' via toISOString()
             //Here moment take an ISO/UTC string to a local time by default.
-            var startMoment = moment(rawData.timeStart);
-            var endMoment = moment(rawData.timeEnd);
+            // var startMoment = moment(rawData.timeStart);
+            // var endMoment = moment(rawData.timeEnd);
+
+            var eventUrl='';
+            if(rawData.status==='booked'){
+                eventUrl= 'http://localhost:3000/bookedSessionDetail?idFromCalendar=' + rawData._id;
+            }
+            if(rawData.status ==='cancelled'){
+                eventUrl='http://cn.bing.com';
+            }
+            if(rawData.status ==='done'){
+                eventUrl='http://cn.bing.com/meetingRecordId';
+            }
 
             return {
                 id: rawData._id,
                 title: 'testTitle',
-                start: startMoment,
-                end: endMoment,
-                //start: rawData.availableDate + "T" + rawData.timeStart + ":00.000Z",   // Doesn't cover the story that the endMoment is next date.
-                //end: rawData.availableDate + "T" + rawData.timeEnd + ":00.000Z",      // Must-have or prerequesites in config:  timezone : 'local'
-                url: 'http://cn.bing.com'
-                //allDay: false
+                start: rawData.timeStart,  //startMoment, ISO string with UTC is expected, and momentjs will handle it and convert to local time
+                end: rawData.timeEnd,      //endMoment, ISO string with UTC is expected, and momentjs will handle it and convert to local time
+                url: eventUrl
             };
         };
 
@@ -79,7 +87,9 @@
             url: '/api/openAvailTime',
             type: 'GET',
             data: {
-                userId: '001test'
+                userId: '001test',
+                utcOffset: moment().utcOffset()   // to pass the utcOffset as minutes with sign + or -
+                //utcOffset: moment().format('Z')    //or utcOffset: moment().format('Z')
             },
             color: 'green',
             textColor: 'white',

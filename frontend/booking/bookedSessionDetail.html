@@ -6,11 +6,11 @@
         <label>Course :</label><Input contenteditable="false"/><br>
         <label>Level :</label><Input contenteditable="false"/><br>
         <label>Language :</label><Input contenteditable="false"/><br>
-        <label>Instructor :</label><Input contenteditable="false"/><br>
-        <label>Booking Status :</label><Input contenteditable="false"/><br>
+        <label>Instructor :</label><label> {{bookedSessionDetailVm.bookedRecord.studentName}}</label><br>
+        <label>Booking Status :</label><input ng-model="bookedSessionDetailVm.bookedRecord.status" contenteditable="false"/><br>
         <label>Date :</label><Input contenteditable="false"/><br>
-        <label>Start Time :</label><Input contenteditable="false"/><br>
-        <label>End Time :</label><Input contenteditable="false"/><br>
+        <label>Start Time :</label><Input ng-model="bookedSessionDetailVm.bookedRecord.timeStart" contenteditable="false"/><br>
+        <label>End Time :</label><Input ng-model="bookedSessionDetailVm.bookedRecord.timeEnd" contenteditable="false"/><br>
         <p></p>
         <label>Date/Time Booked :</label><Input contenteditable="false"/><br>
         <label>Booked By :</label><Input contenteditable="false"/><br>
@@ -40,6 +40,6 @@
                 <option value="Vacation"></option>
             </datalist>
         </p>
-        <button type="button">Request that this Session be Cancelled</button>
+        <button type="button" ng-click="bookedSessionDetailVm.cancel()">Request that this Session be Cancelled</button>
     </div>
 </div>

@@ -15,9 +15,13 @@
         <tbody>
         <tr ng-show="availTimeCandidatesVm.candidateList.length <= 0"><td colspan="5" style="text-align:center;">Loading new data!!</td></tr>
         <tr dir-paginate="item in availTimeCandidatesVm.candidateList|itemsPerPage:availTimeCandidatesVm.itemsPerPage" total-items="availTimeCandidatesVm.total_count">
-            <td>{{item.timeStart}}</td>
-            <td>{{item.timeEnd}}</td>
-            <td>{{item.instructor}}</td>
+            <!--
+            <td>{{moment(item.timeStart)}}</td>
+            <td>{{moment(item.timeEnd)}}</td>
+            -->
+            <td>{{availTimeCandidatesVm.queryCriteria.earliestStartTime}}</td>
+            <td>{{availTimeCandidatesVm.queryCriteria.latestEndTime}}</td>
+            <td>{{item.Instructor}}</td>
             <td><button type="button" ng-click="availTimeCandidatesVm.bookSession(item)">Book session(s)</button></td>
         </tr>
         </tbody>
@@ -26,6 +30,6 @@
             max-size="5"
             direction-links="true"
             boundary-links="true"
-            on-page-change="availTimeCandidatesVm.getData(newPageNumber)" >
+            on-page-change="availTimeCandidatesVm.getData(newPageNumber, oldPageNumber)" >
     </dir-pagination-controls>
 </div>

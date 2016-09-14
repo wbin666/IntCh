@@ -149,6 +149,7 @@
             //                 or via ssl/https??
             //     more : http://stackoverflow.com/questions/1634271/url-encoding-the-space-character-or-20
 
+
             var newPromise = $q(function newPromiseCb(resolve, reject){
                 //Using route in server side: /authClient/uniquecheck/:fieldname/:fieldvalue
                 $http.get('/authClient/uniquecheck/' + fieldName + '/' + checkValue)
@@ -164,6 +165,19 @@
             });
 
             return newPromise;
+
+            //Todo: I believe the approach below is better since $http is a promise and return promise, no need to wrapper it as promise
+            // //Using route in server side: /authClient/uniquecheck/:fieldname/:fieldvalue
+            // return $http.get('/authClient/uniquecheck/' + fieldName + '/' + checkValue)
+            //     .then(function sucessCb(response){
+            //         console.log("Found existing value in user database for : " + checkValue);
+            //         return $q.reject("Existing value found");
+            //     })
+            //     .catch(function errorCb(response){
+            //         //the username is legal/unique to use since it has not been registered
+            //         console.log("Not found the value in user database for : " + checkValue);
+            //         return $q.resolve("It's qualified for a new user");
+            //     });
 
         }
     }

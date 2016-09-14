@@ -8,8 +8,30 @@
     openingDataClient.inject = ['$http', '$location', 'dateTimeUtil'];
     function openingDataClient($http, $location, dateTimeUtil) {
         return {
+            deleteAvailTime: deleteAvailTime,
             publishTime: publishTime
         };
+
+        function deleteAvailTime(vm){
+            console.log('starting to delete the opened avail time');
+            var deleteData = {
+                localTimeStart : dateTimeUtil.getLocalDateTimeWithUtcoffset(vm.startDateModel, vm.startTimeModel),
+                localTimeEnd : dateTimeUtil.getLocalDateTimeWithUtcoffset(vm.startDateModel, vm.endTimeModel),
+                //comment localDateStart variable because it is same to localTimeStart
+                //localDateStart : dateTimeUtil.getLocalDateTimeWithUtcoffset(vm.startDateModel, vm.startTimeModel),
+                localDateEnd : dateTimeUtil.getLocalDateTimeWithUtcoffset(vm.endDateModel, vm.endTimeModel)
+            };
+
+            return $http.post('/api/availTime/deletes', deleteData)
+                .then(function(response){
+                    //add Flash message here
+                    //location.url('/api/availTime/deletes/' + response.data.resourceId);
+                    location.url('/myCalendar?gotoDate=' + dateTimeUtil.getLocalDateStr(vm.startDateModel));
+                })
+                .catch(function(errResponse){
+                    console.log('Error occurred during picking up the deletion candidates : ' + errResponse.status + ' : '+ errResponse.statusText);
+                });
+        }
 
         function publishTime(vm){
             console.log("starting to submit the avail time plan.");
@@ -22,14 +44,14 @@
             var recurData = dateTimeUtil.getRecurData(vm);
 
             //local startTime to combine the startDate and startTime together to produce ISO-8601 string of local datetime with UTC Offset.
-            var startTime = dateTimeUtil.getLocalDateTimeWithUtcoffset(vm.startDateModel, vm.startTimeModel);
-            //local endTime with combination the sttart Date and endTime to produce ISO-8601 string of local datetime with UTC Offset.
-            var endTime =dateTimeUtil.getLocalDateTimeWithUtcoffset(vm.startDateModel, vm.endTimeModel);
+            var startTime = dateTimeUtil.getLocalDateTimeStrWithUtcOffset(vm.startDateModel, vm.startTimeModel);
+            //local endTime with combination the start Date and endTime to produce ISO-8601 string of local datetime with UTC Offset.
+            var endTime =dateTimeUtil.getLocalDateTimeStrWithUtcOffset(vm.startDateModel, vm.endTimeModel);
             
             //local schDateStart with start time to to produce ISO-8601 string of local datetime with UTC Offset.
-            var schDateStart = dateTimeUtil.getLocalDateTimeWithUtcoffset(vm.startDateModel, vm.startTimeModel);
+            var schDateStart = dateTimeUtil.getLocalDateTimeStrWithUtcOffset(vm.startDateModel, vm.startTimeModel);
             //local schDateEnd with end time to to produce ISO-8601 string of local datetime with UTC Offset.
-            var schDateEnd =dateTimeUtil.getLocalDateTimeWithUtcoffset(vm.endDateModel, vm.endTimeModel);
+            var schDateEnd =dateTimeUtil.getLocalDateTimeStrWithUtcOffset(vm.endDateModel, vm.endTimeModel);
 
             // var postData = {
             //     timeStart: startDateTimeUtcStr.utcTimeString,      //string, "09:30", UTC

@@ -32,12 +32,23 @@
         };
 
         function dataFilter4Submit(vm) {
-            var startDateTimeUtcStr = dateTimeUtil.getUtcDateTimeStr(vm.dateModel, vm.earliestStartTimeModel);
-            var endDateTimeUtcStr = dateTimeUtil.getUtcDateTimeStr(vm.dateModel, vm.latestEndTimeModel);
+            // var startDateTimeUtcStr = dateTimeUtil.getUtcDateTimeStr(vm.dateModel, vm.earliestStartTimeModel);
+            // var endDateTimeUtcStr = dateTimeUtil.getUtcDateTimeStr(vm.dateModel, vm.latestEndTimeModel);
+            //
+            // return {
+            //     earliestStartTime: startDateTimeUtcStr,
+            //     latestEndTime: endDateTimeUtcStr,
+            //     unitNumber: vm.unitNumber,
+            //     preferredInstructorName: vm.preferredInstructorName
+            // };
+
+            //change to local datetime ISO string with UTC Offset
+            var startDateTimeLocalIsoStr = dateTimeUtil.getLocalDateTimeStrWithUtcOffset(vm.dateModel, vm.earliestStartTimeModel);
+            var endDateTimeLocalIsoStr = dateTimeUtil.getLocalDateTimeStrWithUtcOffset(vm.dateModel, vm.latestEndTimeModel);
 
             return {
-                earlistStartTime: startDateTimeUtcStr,
-                latestEndTime: endDateTimeUtcStr,
+                earliestStartTime: startDateTimeLocalIsoStr,
+                latestEndTime: endDateTimeLocalIsoStr,
                 unitNumber: vm.unitNumber,
                 preferredInstructorName: vm.preferredInstructorName
             };

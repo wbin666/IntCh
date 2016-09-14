@@ -17,12 +17,14 @@
                 templateUrl: 'booking/availTimeList.html',
                 controller: 'AvailTimeCandidateCtrl',
                 controllerAs: 'availTimeCandidatesVm',
-                resolve: {
-                    firstPageData: getAvailTimeForBooking
-                }
+                // resolve: {
+                //     firstPageData: getAvailTimeForBooking
+                // }
             })
             .when('/bookedSessionDetail', {
-                templateUrl: 'booking/bookedSessionDetail.html'
+                templateUrl: 'booking/bookedSessionDetail.html',
+                controller: 'bookedSessionDetailCtrl',
+                controllerAs: 'bookedSessionDetailVm'
             });
 
         // configure html5 to get links working on jsfiddle
@@ -30,14 +32,14 @@
 
     }
 
-    ////////////////////////////////////////////////////////
-    //Todo:  how to get data for first page only instead of all the data
-    getAvailTimeForBooking.$inject = ['$route', 'bookingDataClient'];
-    function getAvailTimeForBooking($route, bookingDataClient){
-        console.log("$route.current.params is : " + JSON.stringify($route.current.params));
-
-        return bookingDataClient.queryAvailTime($route.current.params);
-    }
+    // ////////////////////////////////////////////////////////
+    // 
+    // getAvailTimeForBooking.$inject = ['$route', 'bookingDataClient'];
+    // function getAvailTimeForBooking($route, bookingDataClient){
+    //     console.log("$route.current.params is : " + JSON.stringify($route.current.params));
+    //
+    //     return bookingDataClient.queryAvailTime($route.current.params);
+    // }
 
     
 })();
