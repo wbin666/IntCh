@@ -3,7 +3,15 @@
  */
 (function(){
     'use strict';
-    
+
+    // Todo:  need to refine the REST API
+    // api/timeslots/avail/
+    // get, post, delete, put/patch
+    // api/timeslots/booked/
+    // get, post, delete, put/patch
+
+
+
     var express = require('express');
     var bodyParser = require('body-parser');
     var jsonParser = bodyParser.json();
